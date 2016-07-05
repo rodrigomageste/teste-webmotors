@@ -17,4 +17,19 @@ RSpec.describe Make do
       expect(Make.count).to eq(178)
     end
   end
+
+  describe '#create_models_from_webmotors_api' do
+    let(:make) { Make.create(name: "CHEVROLET", webmotors_id: 2) }
+
+    it 'not run find_or_create_by if all models already are created' do
+      expect(make.models).to receive(:count) { 93 }
+      expect(make.models).not_to receive(:find_or_create_by)
+      make.create_models_from_webmotors_api
+    end
+
+    it 'create all models belongs to a make id database is empty' do
+      make.create_models_from_webmotors_api
+      expect(make.models.count).to eq(93)
+    end
+  end
 end

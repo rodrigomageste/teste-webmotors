@@ -13,4 +13,15 @@ class Make < ActiveRecord::Base
       Make.find_or_create_by(name: brand["Nome"], webmotors_id: brand["Id"])
     end
   end
+
+  def create_models_from_webmotors_api
+    response = Net::HTTP.post_form(Model::URI_WEBMOTORS_MODELS, { marca: webmotors_id })
+    models_json = JSON.parse response.body
+
+    return if models.count == models_json.uniq.count
+
+    models_json.each do |model|
+      models.find_or_create_by(name: model["Nome"])
+    end
+  end
 end
