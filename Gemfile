@@ -44,4 +44,5 @@ end
 
 group :test do
   gem 'rspec-rails'
+  gem 'shoulda-matchers',     '2.8.0', require: false
 end
