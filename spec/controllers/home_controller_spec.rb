@@ -8,7 +8,7 @@ RSpec.describe HomeController do
       brands_json = JSON.parse Net::HTTP.post_form(Make::URI_WEBMOTORS_BRANDS, {}).body
       brands_names = brands_json.map { |brand| brand["Nome"] }.uniq
 
-      expect(Make.count).to eq(brands_names.count)
+      expect(assigns[:makes].count).to eq(brands_names.count)
       expect(response).to have_http_status :ok
     end
   end
