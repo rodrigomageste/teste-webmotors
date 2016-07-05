@@ -1,4 +1,6 @@
 class Make < ActiveRecord::Base
+  has_many :models
+
   URI_WEBMOTORS_BRANDS = URI('http://www.webmotors.com.br/carro/marcas')
 
   def self.create_entries_from_webmotors_api
