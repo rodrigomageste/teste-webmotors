@@ -6,9 +6,7 @@ class HomeController < ApplicationController
 
     # Itera no resultado e grava as marcas que ainda não estão persistidas
     json.each do |make_params|
-      if Make.where(name: make_params["Nome"]).size == 0
-        Make.create(name: make_params["Nome"], webmotors_id: make_params["Id"])
-      end
+      Make.find_or_create_by(name: make_params["Nome"], webmotors_id: make_params["Id"])
     end
   end
 end
