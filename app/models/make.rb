@@ -2,6 +2,7 @@ class Make < ActiveRecord::Base
   has_many :models
 
   URI_WEBMOTORS_BRANDS = URI('http://www.webmotors.com.br/carro/marcas')
+  URI_WEBMOTORS_MODELS = URI('http://www.webmotors.com.br/carro/modelos')
 
   def self.create_entries_from_webmotors_api
     web_motors_response = Net::HTTP.post_form(URI_WEBMOTORS_BRANDS, {})
@@ -15,7 +16,7 @@ class Make < ActiveRecord::Base
   end
 
   def create_models_from_webmotors_api
-    response = Net::HTTP.post_form(Model::URI_WEBMOTORS_MODELS, { marca: webmotors_id })
+    response = Net::HTTP.post_form(URI_WEBMOTORS_MODELS, { marca: webmotors_id })
     models_json = JSON.parse response.body
 
     return if models.count == models_json.uniq.count
