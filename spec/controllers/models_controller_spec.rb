@@ -11,7 +11,7 @@ RSpec.describe ModelsController do
       webmotors_response = Net::HTTP.post_form(uri, { marca: make.webmotors_id })
       models_json = JSON.parse webmotors_response.body
 
-      expect(make.models.count).to eq(models_json.count)
+      expect(assigns[:models].count).to eq(models_json.count)
       expect(response).to have_http_status(:ok)
     end
   end
