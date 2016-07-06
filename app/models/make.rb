@@ -1,25 +1,20 @@
 class Make < ActiveRecord::Base
   has_many :models
 
-  URI_WEBMOTORS_BRANDS = URI('http://www.webmotors.com.br/carro/marcas')
-  URI_WEBMOTORS_MODELS = URI('http://www.webmotors.com.br/carro/modelos')
-
   def self.create_entries_from_webmotors_api
-    web_motors_response = Net::HTTP.post_form(URI_WEBMOTORS_BRANDS, {})
-    car_brands = JSON.parse(web_motors_response.body)
+    makes_json = WebMotorsAPI.get_makes
 
-    return if Make.count == car_brands.uniq.count
+    return if Make.count == makes_json.count
 
-    car_brands.each do |brand|
-      Make.find_or_create_by(name: brand["Nome"], webmotors_id: brand["Id"])
+    makes_json.each do |make|
+      Make.find_or_create_by(name: make["Nome"], webmotors_id: make["Id"])
     end
   end
 
   def create_models_from_webmotors_api
-    response = Net::HTTP.post_form(URI_WEBMOTORS_MODELS, { marca: webmotors_id })
-    models_json = JSON.parse response.body
+    models_json = WebMotorsAPI.get_models_of(self)
 
-    return if models.count == models_json.uniq.count
+    return if models.count == models_json.count
 
     models_json.each do |model|
       models.find_or_create_by(name: model["Nome"])

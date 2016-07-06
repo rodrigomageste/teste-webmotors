@@ -5,7 +5,7 @@ RSpec.describe HomeController do
     it 'saves all car brands at webmotors API' do
       get :index
 
-      brands_json = JSON.parse Net::HTTP.post_form(Make::URI_WEBMOTORS_BRANDS, {}).body
+      brands_json = JSON.parse Net::HTTP.post_form(WebMotorsAPI::URI_WEBMOTORS_BRANDS, {}).body
       brands_names = brands_json.map { |brand| brand["Nome"] }.uniq
 
       expect(assigns[:makes].count).to eq(brands_names.count)
