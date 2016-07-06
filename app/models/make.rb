@@ -18,7 +18,7 @@ class Make < ActiveRecord::Base
     return if models.count == models_json.count
 
     models_json.each do |model|
-      models.find_or_create_by(name: model["Nome"])
+      models.create(name: model['Nome'])
     end
   end
 end
