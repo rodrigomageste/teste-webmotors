@@ -1,5 +1,6 @@
 class Make < ActiveRecord::Base
   has_many :models
+  validates :name, :webmotors_id, uniqueness: true
 
   def self.create_entries_from_webmotors_api
     makes_json = WebMotorsAPI.get_makes
@@ -7,7 +8,7 @@ class Make < ActiveRecord::Base
     return if Make.count == makes_json.count
 
     makes_json.each do |make|
-      Make.find_or_create_by(name: make["Nome"], webmotors_id: make["Id"])
+      Make.create(name: make['Nome'], webmotors_id: make['Id'])
     end
   end
 

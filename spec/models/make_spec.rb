@@ -5,6 +5,11 @@ RSpec.describe Make do
     it { is_expected.to have_many(:models) }
   end
 
+  describe 'validations' do
+    it { is_expected.to validate_uniqueness_of(:name) }
+    it { is_expected.to validate_uniqueness_of(:webmotors_id) }
+  end
+
   describe '.create_entries_from_webmotors_api' do
     it 'not run find_or_create_by if all brands already are created' do
       expect(Make).to receive(:count) { 178 }
