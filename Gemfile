@@ -22,4 +22,6 @@ group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers',     '2.8.0', require: false
   gem 'capybara',             '2.4.4'
+  gem 'vcr',                  '2.9.3'
+  gem 'webmock',              '1.21.0'
 end
