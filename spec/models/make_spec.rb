@@ -10,7 +10,7 @@ RSpec.describe Make do
     it { is_expected.to validate_uniqueness_of(:webmotors_id) }
   end
 
-  describe '.create_entries_from_webmotors_api' do
+  describe '.create_entries_from_webmotors_api', :vcr do
     it 'not run find_or_create_by if all brands already are created' do
       expect(Make).to receive(:count) { 178 }
       expect(Make).not_to receive(:find_or_create_by)
@@ -23,7 +23,7 @@ RSpec.describe Make do
     end
   end
 
-  describe '#create_models_from_webmotors_api' do
+  describe '#create_models_from_webmotors_api', :vcr do
     let(:make) { Make.create(name: "CHEVROLET", webmotors_id: 2) }
 
     it 'not run find_or_create_by if all models already are created' do

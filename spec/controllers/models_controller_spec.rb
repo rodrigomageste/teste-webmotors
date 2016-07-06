@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ModelsController do
-  describe 'GET index' do
+  describe 'GET index', :vcr do
     let(:uri) { URI("http://www.webmotors.com.br/carro/modelos") }
     let(:make) { Make.create(name: "CHEVROLET", webmotors_id: 2) }
 

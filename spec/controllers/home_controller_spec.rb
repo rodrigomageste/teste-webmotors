@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe HomeController do
-  describe 'GET index' do
+  describe 'GET index', :vcr do
     it 'saves all car brands at webmotors API' do
       get :index
 

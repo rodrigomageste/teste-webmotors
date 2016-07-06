@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Application flow' do
-  describe 'show all models when choose one make and click in button' do
+  describe 'show all models when choose one make and click in button', :vcr do
     it 'success' do
       visit root_path
       select('CHEVROLET', from: 'Escolha a Fabricante:')
